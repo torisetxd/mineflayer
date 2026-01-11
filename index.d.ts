@@ -192,12 +192,12 @@ export interface Bot extends TypedEmitter<BotEvents> {
   health: number
   food: number
   foodSaturation: number
-  oxygenLevel: number
-  physics: PhysicsOptions
-  physicsEnabled: boolean
-  setWorld (world: any): void
-  setIgnoreEntities (names: string[]): void
-  time: Time
+      oxygenLevel: number
+    physicsEnabled: boolean
+    setWorld (world: any): void
+    setIgnoreEntities (names: string[]): void
+    time: Time
+
   quickBarSlot: number
   inventory: Window<StorageEvents>
   targetDigBlock: Block
