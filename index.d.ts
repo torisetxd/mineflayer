@@ -29,16 +29,11 @@ export interface BotOptions extends ClientOptions {
   physicsEnabled?: boolean
   /** @default 4 */
   maxCatchupTicks?: number
-  /** @default false */
-  manualPhysics?: boolean
-  /** @default false */
-  entitySkipMovedEvents?: boolean
-  sharedWorld?: world.WorldSync
-  client?: Client
-  brand?: string
-  defaultChatPatterns?: boolean
-  respawn?: boolean
-}
+    entitySkipMovedEvents?: boolean
+    manualPhysics?: boolean
+    sharedWorld?: any
+    ignoreEntitiesByName?: string[]
+  }
 
 export type ChatLevel = 'enabled' | 'commandsOnly' | 'disabled'
 export type ViewDistance = 'far' | 'normal' | 'short' | 'tiny' | number
@@ -200,6 +195,8 @@ export interface Bot extends TypedEmitter<BotEvents> {
   oxygenLevel: number
   physics: PhysicsOptions
   physicsEnabled: boolean
+  setWorld (world: any): void
+  setIgnoreEntities (names: string[]): void
   time: Time
   quickBarSlot: number
   inventory: Window<StorageEvents>
