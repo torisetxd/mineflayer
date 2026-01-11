@@ -29,6 +29,11 @@ export interface BotOptions extends ClientOptions {
   physicsEnabled?: boolean
   /** @default 4 */
   maxCatchupTicks?: number
+  /** @default false */
+  manualPhysics?: boolean
+  /** @default false */
+  entitySkipMovedEvents?: boolean
+  sharedWorld?: world.WorldSync
   client?: Client
   brand?: string
   defaultChatPatterns?: boolean
