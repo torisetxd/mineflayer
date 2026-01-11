@@ -194,6 +194,7 @@ export interface Bot extends TypedEmitter<BotEvents> {
   foodSaturation: number
       oxygenLevel: number
     physicsEnabled: boolean
+    physics: PhysicsOptions & { tick(now?: number): void, setEnabled(enabled: boolean): void, manualPhysics: boolean }
     setWorld (world: any): void
     setIgnoreEntities (names: string[]): void
     time: Time

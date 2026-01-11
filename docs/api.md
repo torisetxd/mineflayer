@@ -827,6 +827,10 @@ Create and return an instance of the class bot.
  * [enableServerListing](#bot.settings.enableServerListing)
  * chatLengthLimit : the maximum amount of characters that can be sent in a single message. If this is not set, it will be 100 in < 1.11 and 256 in >= 1.11.
  * defaultChatPatterns: defaults to true, set to false to not add the patterns such as chat and whisper
+ * sharedWorld: an optional shared instance of `prismarine-world`. If provided, the bot will use this world instead of creating its own.
+ * ignoreEntitiesByName: an array of entity names to ignore (e.g., `['experience_orb', 'thunderbolt']`). Ignored entities are never spawned and their packets are skipped.
+ * entitySkipMovedEvents: defaults to false. If set to true, the bot will not emit `entityMoved` events, which can save CPU in crowded areas.
+ * manualPhysics: defaults to false. If set to true, the bot will not run its internal physics loop. You must call `bot.physics.tick()` manually.
 
 ### Properties
 
@@ -837,6 +841,10 @@ Instance of minecraft-data used by the bot. Pass this to constructors that expec
 #### bot.world
 
 A sync representation of the world. Check the doc at http://github.com/PrismarineJS/prismarine-world
+
+##### bot.setWorld(world)
+
+Sets a new world instance for the bot. This will correctly handle event listener migration from the old world to the new one.
 
 ##### world "blockUpdate" (oldBlock, newBlock)
 
@@ -858,6 +866,11 @@ Your own entity. See `Entity`.
 #### bot.entities
 
 All nearby entities. This object is a map of entityId to entity.
+
+##### bot.setIgnoreEntities(names)
+
+Sets the list of entity names to ignore. Any existing entities matching these names will be removed, and future ones will not be spawned.
+`names` is an array of strings.
 
 #### bot.username
 
@@ -1043,6 +1056,14 @@ Number in the range [0, 20] representing the number of water-icons known as oxyg
 
 Edit these numbers to tweak gravity, jump speed, terminal velocity, etc.
 Do this at your own risk.
+
+##### bot.physics.tick()
+
+Manually runs a single tick of physics simulation. Useful when `manualPhysics` is enabled.
+
+##### bot.physics.setEnabled(enabled)
+
+Enables or disables the automatic physics loop. Setting this to `false` is equivalent to enabling `manualPhysics`.
 
 #### bot.fireworkRocketDuration
 

@@ -29,6 +29,17 @@ First time using Node.js? You may want to start with the [tutorial](tutorial.md)
  * Activating blocks and using items.
  * Chat.
 
+## Performance Optimizations
+
+This fork includes several patches designed to improve performance, especially when running multiple bots or in high-concurrency environments:
+
+*   **Shared World Support**: Multiple bots can now share a single `prismarine-world` instance using the `sharedWorld` option or `bot.setWorld()`. This drastically reduces memory usage and initialization time for multi-bot setups.
+*   **Entity Filtering**: Ignore specific entity types (e.g., `experience_orb`, `thunderbolt`) via `ignoreEntitiesByName` option or `bot.setIgnoreEntities()`. This skips all processing and event emission for irrelevant entities.
+*   **Lazy Event Emission**: `entityMoved` and `move` events are only emitted if there are active listeners, significantly reducing CPU overhead in crowded areas.
+*   **Physics Lag Handling**: Improved physics engine that prevents event loop blocking during lag spikes by intelligently capping catch-up ticks.
+*   **Manual Physics Control**: Enable `manualPhysics` to take full control over when physics simulations run via `bot.physics.tick()`, ideal for custom tick loops.
+*   **Optimized Hot Paths**: Critical paths in entity tracking and raycasting have been optimized with faster loops and memory-efficient distance checks.
+
 ### Roadmap
 
  Checkout [this page](https://github.com/PrismarineJS/mineflayer/wiki/Big-Prismarine-projects) to see what our current projects are.
